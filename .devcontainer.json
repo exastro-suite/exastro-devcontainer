@@ -1,0 +1,76 @@
+/*
+#   Copyright 2025 NEC Corporation
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+*/
+{
+	"name": "devcontainer ${localEnv:DEVCONTAINER_MAIN_SERVICE:ita-api-organization}",
+	"dockerComposeFile": [
+		"./docker-compose/docker-compose.exastro-devcontainer.yml",
+        "../exastro-platform-dev/.devcontainer/docker-compose.yml",
+        "../exastro-it-automation-dev/.devcontainer/docker-compose.yml",
+        "../exastro-it-automation-dev/.devcontainer/docker-compose.agent.oase.yml",
+        "./docker-compose/docker-compose.exastro-platform.devcontainer.yml",
+        "./docker-compose/docker-compose.exastro-it-automation.devcontainer.yml",
+        "./docker-compose/docker-compose.agent.oase.devcontainer.yml",
+		"./docker-compose/docker-compose.tools.devcontainer.yml"
+	],
+	"service": "${localEnv:DEVCONTAINER_MAIN_SERVICE:ita-api-organization}",
+	// Set *default* container specific settings.json values on container create.
+	"customizations": {
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			/*
+			// settingsは exastro-devcontainer/vscode/common/settings.json に記載を移転
+			// 	→ あとからアタッチしたコンテナにも同じ設定を入れるためそちらに移転しました
+			"settings": {
+            },
+			*/
+
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"donjayamanne.python-extension-pack",
+				"ms-python.vscode-pylance",
+				"ms-ceintl.vscode-language-pack-ja",
+				"ms-vscode.references-view",
+				"ms-python.flake8",
+				"ms-python.black-formatter",
+				"eamodio.gitlens",
+				"mhutchie.git-graph",
+				"42crunch.vscode-openapi",
+				"arjun.swagger-viewer",
+				"redhat.vscode-yaml",
+				"adisreyaj.swagger-snippets",
+				"hediet.vscode-drawio",
+				"oderwat.indent-rainbow",
+				"aaron-bond.better-comments",
+				"sonarsource.sonarlint-vscode",
+				"mechatroner.rainbow-csv",
+				"ryu1kn.partial-diff",
+				"pkief.material-icon-theme",
+				"mitchdenny.ecdc",
+				"ms-vsliveshare.vsliveshare",
+				"snyk-security.snyk-vulnerability-scanner@2.21.0",
+				"humao.rest-client",
+				"ryanluker.vscode-coverage-gutters"
+			]
+		}
+	},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [
+	],
+    "initializeCommand": "./bin/initializeCommand.sh",
+	"workspaceFolder": "/workspace",
+	"overrideCommand": false
+}

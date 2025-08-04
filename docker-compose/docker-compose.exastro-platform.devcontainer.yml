@@ -1,0 +1,407 @@
+#   Copyright 2025 NEC Corporation
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+version: '3.1'
+services:
+  platform-auth:
+    build:
+      target: develop_build
+      context: ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "/app/start_httpd.sh -D MOD_WSGI_DISABLE;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-platform/platform-auth/launch.json:/workspace/.vscode/launch.json:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_auth/common_library:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_resources:/workspace/exastro-platform-dev/platform_root/platform_auth/common_resources:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_auth:/app:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/app/common_library:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_resources:/app/common_resources:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/version:/app/version:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_auth/config/httpd.conf/httpd.conf:/etc/httpd/conf/httpd.conf:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_auth/config/httpd.conf/reverse-proxy.conf:/etc/httpd/conf.d/reverse-proxy.conf:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_auth/config/httpd.conf/wsgi.conf:/etc/httpd/conf.d/wsgi.conf:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_auth/config/httpd.conf/exastro-ssl.conf:/etc/httpd/conf.d/exastro-ssl.conf:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=platform-auth
+      - SOURCE_ROOT=/workspace/exastro-platform-dev/platform_root/platform_auth
+      - PLATFORM_REPO_ROOT=${PLATFORM_REPO_ROOT:-}
+      - FLASK_ENV=development
+      - FLASK_SERVER_PORT=8801
+      - LOG_LEVEL=DEBUG
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+      - AUDIT_LOG_ENABLED=${AUDIT_LOG_ENABLED:-True}
+      - AUDIT_LOG_PATH=${AUDIT_LOG_PATH:-exastro-audit.log}
+      - AUDIT_LOG_FILE_MAX_BYTE=${AUDIT_LOG_FILE_MAX_BYTE:-100000000}
+      - AUDIT_LOG_BACKUP_COUNT=${AUDIT_LOG_BACKUP_COUNT:-30}
+      - ITA_WEB_PROTOCOL=http
+      - ITA_WEB_HOST=ita-web-server
+      - ITA_WEB_PORT=80
+      - ITA_API_PROTOCOL=http
+      - ITA_API_HOST=ita-api-organization
+      - ITA_API_PORT=8000
+      - ITA_API_ADMIN_PROTOCOL=http
+      - ITA_API_ADMIN_HOST=ita-api-admin
+      - ITA_API_ADMIN_PORT=8079
+      - ITA_API_OASE_RECEIVER_PROTOCOL=http
+      - ITA_API_OASE_RECEIVER_HOST=ita-api-oase-receivercur
+      - ITA_API_OASE_RECEIVER_PORT=8000
+      - ITA_API_ANSIBLE_EXECUTION_RECEIVER_PROTOCOL=http
+      - ITA_API_ANSIBLE_EXECUTION_RECEIVER_HOST=ita-api-ansible-execution-receiver
+      - ITA_API_ANSIBLE_EXECUTION_RECEIVER_PORT=8000
+
+  platform-api:
+    build:
+      target: develop_build
+      context: ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "httpd -D FOREGROUND; sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-platform/platform-api/launch.json:/workspace/.vscode/launch.json:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_api/common_library:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_resources:/workspace/exastro-platform-dev/platform_root/platform_api/common_resources:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_api:/app:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/app/common_library:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_resources:/app/common_resources:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/version:/app/version:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_api/config/httpd.conf/httpd.conf:/etc/httpd/conf/httpd.conf:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_api/config/httpd.conf/wsgi.conf:/etc/httpd/conf.d/wsgi.conf:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ../vscode/common:/home/app_user/.config/Code/User
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=platform-api
+      - SOURCE_ROOT=/workspace/exastro-platform-dev/platform_root/platform_api
+      - PLATFORM_REPO_ROOT=${PLATFORM_REPO_ROOT:-}
+      - FLASK_ENV=development
+      - LOG_LEVEL=DEBUG
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+      - NETWORK_ID=${NETWORK_ID:-}
+      - EXT_PORT_PLATFORM_UNITTEST_DB=${EXT_PORT_PLATFORM_UNITTEST_DB:-3308}
+      - ITA_API_ADMIN_PROTOCOL=http
+      - ITA_API_ADMIN_HOST=ita-api-admin
+      - ITA_API_ADMIN_PORT=8079
+
+  platform-job:
+    build:
+      target: develop_build
+      context: ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-platform/platform-job/launch.json:/workspace/.vscode/launch.json:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_job/common_library:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_resources:/workspace/exastro-platform-dev/platform_root/platform_job/common_resources:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_job:/app:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/app/common_library:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_resources:/app/common_resources:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/version:/app/version:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=platform-job
+      - SOURCE_ROOT=/workspace/exastro-platform-dev/platform_root/platform_job
+      - PLATFORM_REPO_ROOT=${PLATFORM_REPO_ROOT:-}
+      - FLASK_ENV=development
+      - LOG_LEVEL=DEBUG
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+      - NETWORK_ID=${NETWORK_ID:-}
+      - JOB_NOTIFICATION_SMTPS_SSL_VERIFY_ENABLED=FALSE
+      - EXT_PORT_PLATFORM_UNITTEST_DB=${EXT_PORT_PLATFORM_UNITTEST_DB:-3308}
+      - PLATFORM_DBMS=${PLATFORM_DBMS:-mariadb}
+
+  platform-web:
+    build:
+      target: develop_build
+      context: ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}
+      secrets:
+        - host_certificate_file
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_web/config/httpd.conf/httpd.conf:/etc/httpd/conf/httpd.conf:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_web/config/httpd.conf/rewrite.conf:/etc/httpd/conf.d/rewrite.conf:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_web/contents:/var/www/html:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/version:/var/www/html/version:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=platform-web
+      - SOURCE_ROOT=/workspace/exastro-platform-dev/platform_root/platform_web
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  keycloak:
+    build:
+      target: develop_build
+      context: ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}
+    volumes:
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/keycloak/themes/exastro:/opt/keycloak/themes/exastro:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/keycloak/themes/keycloak-themes.json:/opt/keycloak/META-INF/keycloak-themes.json:cached
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+    environment:
+      - JAVA_OPTS_APPEND=-Xms256m -Xmx256m
+      - SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+      - SSL_CERT_DIR=/etc/ssl/certs
+    command:
+      # 開発モードで起動
+      - start-dev
+      - --spi-theme-static-max-age=-1
+      - --spi-theme-cache-themes=false
+      - --spi-theme-cache-templates=false
+
+  platform-db:
+    volumes:
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_db/conf/my.cnf:/etc/mysql/conf.d/my.cnf
+    ports:
+      - "0.0.0.0:${EXT_PORT_PLATFORM_DB:-3307}:3306"
+
+  platform-db-mysql:
+    image: mysql:8.0
+    healthcheck:
+      test: mysqladmin ping --silent && mysql -u root -p$${MYSQL_ROOT_PASSWORD} -e 'select 1;'
+      interval: 3s
+      retries: 200
+    volumes:
+      - ../.volumes/platform-db-mysql/data:/var/lib/mysql
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_db/conf/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      - TZ=Asia/Tokyo
+      - MYSQL_ROOT_PASSWORD=password
+    ports:
+      - "0.0.0.0:${EXT_PORT_PLATFORM_DB_MYSQL:-3309}:3306"
+    networks:
+      - exastro
+
+  platform-migration-1:
+    build:
+      context: ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}
+      secrets:
+        - host_certificate_file
+
+  platform-migration-2:
+    build:
+      target: develop_build
+      context: ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}
+      secrets:
+        - host_certificate_file
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-platform/platform-migration/launch.json:/workspace/.vscode/launch.json:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_migration/common_library:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_resources:/workspace/exastro-platform-dev/platform_root/platform_migration/common_resources:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_migration:/app:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/app/common_library:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_resources:/app/common_resources:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/version:/app/version:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=platform-migration-2
+      - SOURCE_ROOT=/workspace/exastro-platform-dev/platform_root/platform_migration
+      - FLASK_ENV=development
+      - LOG_LEVEL=DEBUG
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  platform-migration-dev:
+    build:
+      dockerfile: ./platform_root/platform_migration/Dockerfile
+      args:
+        - HTTP_PROXY=${HTTP_PROXY}
+        - http_proxy=${HTTP_PROXY}
+        - HTTPS_PROXY=${HTTPS_PROXY}
+        - https_proxy=${HTTPS_PROXY}
+      target: develop_build
+      context: ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-platform/platform-migration/launch.json:/workspace/.vscode/launch.json:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_migration/common_library:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_resources:/workspace/exastro-platform-dev/platform_root/platform_migration/common_resources:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_migration:/app:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/app/common_library:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_resources:/app/common_resources:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/version:/app/version:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=platform-migration-dev
+      - SOURCE_ROOT=/workspace/exastro-platform-dev/platform_root/platform_migration
+      - FLASK_ENV=development
+      - LOG_LEVEL=DEBUG
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+      - TZ=Asia/Tokyo
+      - PYTHONIOENCODING=utf-8
+      - KEYCLOAK_USER=${KEYCLOAK_ADMIN:-admin}
+      - KEYCLOAK_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD:-password}
+      - API_KEYCLOAK_HOST=keycloak
+      - API_KEYCLOAK_PROTOCOL=http
+      - API_KEYCLOAK_PORT=8080
+      - DB_HOST=${PLATFORM_DB_HOST:-platform-db}
+      - DB_DATABASE=platform
+      - DB_USER=app_user
+      - DB_PASSWORD=password
+      - DB_ADMIN_USER=root
+      - DB_ADMIN_PASSWORD=password
+      - KEYCLOAK_DB_DATABASE=keycloak
+      - KEYCLOAK_DB_USER=keycloak
+      - KEYCLOAK_DB_PASSWORD=password
+      # - TIMEOUT_SECONDS_CONNECT_DB=600
+      # - TIMEOUT_SECONDS_KEYCLOAK_START=600
+      - ENCRYPT_KEY=${ENCRYPT_KEY}
+    networks:
+      - exastro
+    depends_on:
+      platform-migration-1:
+        condition: service_completed_successfully

@@ -1,0 +1,90 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Coverage Report",
+      "type": "shell",
+      "command": "coverage report --data-file=${env:SOURCE_ROOT}/.coverage",
+      "problemMatcher": []
+    },
+    {
+      "label": "Unittest Container Up - mariadb",
+      "type": "shell",
+      "command": "${env:SOURCE_ROOT}/tests/docker-compose-up-mariadb.sh",
+      "problemMatcher": []
+    },
+    {
+      "label": "Unittest Container Up - mysql",
+      "type": "shell",
+      "command": "${env:SOURCE_ROOT}/tests/docker-compose-up-mysql.sh",
+      "problemMatcher": []
+    },
+    {
+      "label": "AutoRun Task",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+          "WaitMigration",
+          "RestartAllApiService"
+      ],
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "WaitMigration",
+      "type": "shell",
+      "command": "${workspaceFolder}/exastro-devcontainer/bin/taskWaitMigration.sh",
+      "problemMatcher": []
+    },
+    {
+      "label": "RestartAllApiService",
+      "dependsOrder": "parallel",
+      "dependsOn": [
+        "platform-auth",
+        "platform-api",
+        "ita-api-organization",
+        "ita-api-admin",
+        "ita-api-ansible-execution-receiver",
+        "ita-api-oase-receiver"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "platform-auth",
+      "type": "shell",
+      "command": "${workspaceFolder}/exastro-devcontainer/bin/taskRestartAPIservice.sh platform-auth 8801 not-stop-httpd /app/api.py",
+      "problemMatcher": []
+    },
+    {
+      "label": "platform-api",
+      "type": "shell",
+      "command": "${workspaceFolder}/exastro-devcontainer/bin/taskRestartAPIservice.sh platform-api 8000 stop-httpd /app/api.py",
+      "problemMatcher": []
+    },
+    {
+      "label": "ita-api-organization",
+      "type": "shell",
+      "command": "${workspaceFolder}/exastro-devcontainer/bin/taskRestartAPIservice.sh ita-api-organization 8000 stop-httpd /exastro/api.py",
+      "problemMatcher": []
+    },
+    {
+      "label": "ita-api-admin",
+      "type": "shell",
+      "command": "${workspaceFolder}/exastro-devcontainer/bin/taskRestartAPIservice.sh ita-api-admin 8079 stop-httpd /exastro/api.py",
+      "problemMatcher": []
+    },
+    {
+      "label": "ita-api-ansible-execution-receiver",
+      "type": "shell",
+      "command": "${workspaceFolder}/exastro-devcontainer/bin/taskRestartAPIservice.sh ita-api-ansible-execution-receiver 8000 stop-httpd /exastro/api.py",
+      "problemMatcher": []
+    },
+    {
+      "label": "ita-api-oase-receiver",
+      "type": "shell",
+      "command": "${workspaceFolder}/exastro-devcontainer/bin/taskRestartAPIservice.sh ita-api-oase-receiver 8000 stop-httpd /exastro/api.py",
+      "problemMatcher": []
+    }
+  ]
+}

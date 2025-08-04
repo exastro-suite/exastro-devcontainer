@@ -1,0 +1,7 @@
+.env
+/.private/
+/.volumes/
+/.vscode_extensions/
+/.vscode_server/
+.talismanrc
+.dccache

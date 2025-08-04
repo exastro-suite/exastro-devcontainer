@@ -1,0 +1,1274 @@
+#   Copyright 2025 NEC Corporation
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+version: '3.7'
+services:
+  ita-api-organization:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "httpd -D FOREGROUND; sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-api-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_api_organization/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_api_organization/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_api_organization:/exastro/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_api_organization/config/httpd.conf/httpd.conf:/etc/httpd/conf/httpd.conf:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_api_organization/config/httpd.conf/wsgi.conf:/etc/httpd/conf.d/wsgi.conf:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-api-organization
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_api_organization
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-api-admin:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "httpd -D FOREGROUND; sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-api-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_api_admin/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_api_admin/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_api_admin:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_api_admin/config/httpd.conf/httpd.conf:/etc/httpd/conf/httpd.conf:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_api_admin/config/httpd.conf/wsgi.conf:/etc/httpd/conf.d/wsgi.conf:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-api-admin
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_api_admin
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-web-server:
+    build:
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    volumes:
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_web_server/contents/:/var/www/html/:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_web_server/config/httpd.conf/httpd.conf:/etc/httpd/conf/httpd.conf:cached
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+
+  ita-by-ansible-execute:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_execute/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_execute/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_execute/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_ansible_execute:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-ansible-execute
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_execute
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-ansible-legacy-role-vars-listup:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_legacy_role_vars_listup/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_legacy_role_vars_listup/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_legacy_role_vars_listup/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_ansible_legacy_role_vars_listup:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-ansible-legacy-role-vars-listup
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_legacy_role_vars_listup
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-ansible-legacy-vars-listup:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_legacy_vars_listup/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_legacy_vars_listup/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_legacy_vars_listup/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_ansible_legacy_vars_listup:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-ansible-legacy-vars-listup
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_legacy_vars_listup
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-ansible-pioneer-vars-listup:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_pioneer_vars_listup/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_pioneer_vars_listup/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_pioneer_vars_listup/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_ansible_pioneer_vars_listup:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-ansible-pioneer-vars-listup
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_pioneer_vars_listup
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-ansible-towermaster-sync:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_towermaster_sync/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_towermaster_sync/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_towermaster_sync/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_ansible_towermaster_sync:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-ansible-towermaster-sync
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_towermaster_sync
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-collector:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_collector/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_collector/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_collector/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_collector:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-collector
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_collector
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-conductor-synchronize:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_conductor_synchronize/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_conductor_synchronize/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_conductor_synchronize/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_conductor_synchronize:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-conductor-synchronize
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_conductor_synchronize
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-conductor-regularly:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_conductor_regularly/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_conductor_regularly/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_conductor_regularly/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_conductor_regularly:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-conductor-regularly
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_conductor_regularly
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-menu-create:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_menu_create/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_menu_create/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_menu_create/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_menu_create:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-menu-create
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_menu_create
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-menu-export-import:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_menu_export_import/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_menu_export_import/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_menu_export_import/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_menu_export_import:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_migration/versions:/exastro/versions:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_migration/version.list:/exastro/version.list:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_api_admin/sql:/exastro/sql:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-menu-export-import
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_menu_export_import
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-excel-export-import:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_excel_export_import/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_excel_export_import/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_excel_export_import/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_excel_export_import:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-excel-export-import
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_excel_export_import
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-terraform-cloud-ep-execute:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cloud_ep_execute/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cloud_ep_execute/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cloud_ep_execute/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_terraform_cloud_ep_execute:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-terraform-cloud-ep-execute
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cloud_ep_execute
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-terraform-cloud-ep-vars-listup:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cloud_ep_vars_listup/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cloud_ep_vars_listup/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cloud_ep_vars_listup/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_terraform_cloud_ep_vars_listup:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-terraform-cloud-ep-vars-listup
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cloud_ep_vars_listup
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-terraform-cli-execute:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cli_execute/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cli_execute/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cli_execute/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_terraform_cli_execute:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-terraform-cli-execute
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cli_execute
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-terraform-cli-vars-listup:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cli_vars_listup/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cli_vars_listup/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cli_vars_listup/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_terraform_cli_vars_listup:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-terraform-cli-vars-listup
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cli_vars_listup
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-hostgroup-split:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_hostgroup_split/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_hostgroup_split/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_hostgroup_split/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_hostgroup_split:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-hostgroup-split
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_hostgroup_split
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-cicd-for-iac:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_cicd_for_iac/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_cicd_for_iac/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_cicd_for_iac/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_cicd_for_iac:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-cicd-for-iac
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_cicd_for_iac
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-execinstance-dataautoclean:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_execinstance_dataautoclean/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_execinstance_dataautoclean/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_execinstance_dataautoclean/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_execinstance_dataautoclean:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-execinstance-dataautoclean
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_execinstance_dataautoclean
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-file-autoclean:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_file_autoclean/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_file_autoclean/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_file_autoclean/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_file_autoclean:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-file-autoclean
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_file_autoclean
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-migration:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-migration/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_migration/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_migration/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_migration:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-migration
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_migration
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=localhost,127.0.0.1,ita-api-organization,ita-api-admin,ita-web-server,platform-api
+      - no_proxy=localhost,127.0.0.1,ita-api-organization,ita-api-admin,ita-web-server,platform-api
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-migration-dev:
+    build:
+      dockerfile: ./ita_root/ita_migration/Dockerfile
+      args:
+        - HTTP_PROXY=${HTTP_PROXY}
+        - http_proxy=${HTTP_PROXY}
+        - HTTPS_PROXY=${HTTPS_PROXY}
+        - https_proxy=${HTTPS_PROXY}
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-migration/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_migration/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_migration/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_migration:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+      - vol-ita-storage:/storage
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-migration-dev
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_migration
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=localhost,127.0.0.1,ita-api-organization,ita-api-admin,ita-web-server,platform-api
+      - no_proxy=localhost,127.0.0.1,ita-api-organization,ita-api-admin,ita-web-server,platform-api
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+      - TZ=Asia/Tokyo
+      - ENCRYPT_KEY=${ENCRYPT_KEY}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_ADMIN_USER=${DB_ADMIN_USER}
+      - DB_ADMIN_PASSWORD=${DB_ADMIN_PASSWORD}
+      - PLATFORM_API_HOST=platform-api
+      - PLATFORM_API_PORT=8000
+      - SYSTEM_ANSIBLE_EXECUTION_LIMIT=${SYSTEM_ANSIBLE_EXECUTION_LIMIT}
+      - SYSTEM_ANSIBLE_EXECUTION_LIMIT_DESCRIPTION=${SYSTEM_ANSIBLE_EXECUTION_LIMIT_DESCRIPTION}
+      - ORG_ANSIBLE_EXECUTION_LIMIT_DEFAULT=${ORG_ANSIBLE_EXECUTION_LIMIT_DEFAULT}
+      - ORG_ANSIBLE_EXECUTION_LIMIT_MAX=${ORG_ANSIBLE_EXECUTION_LIMIT_MAX}
+      - ORG_ANSIBLE_EXECUTION_LIMIT_DESCRIPTION=${ORG_ANSIBLE_EXECUTION_LIMIT_DESCRIPTION}
+      - ORG_COMMON_MAINTENANCE_RECORDS_LIMIT_DESCRIPTION=${ORG_COMMON_MAINTENANCE_RECORDS_LIMIT_DESCRIPTION}
+      - ORG_COMMON_MAINTENANCE_RECORDS_LIMIT_MAX=${ORG_COMMON_MAINTENANCE_RECORDS_LIMIT_MAX}
+      - ORG_COMMON_MAINTENANCE_RECORDS_LIMIT_DEFAULT=${ORG_COMMON_MAINTENANCE_RECORDS_LIMIT_DEFAULT}
+      - ORG_COMMON_UPLOAD_FILE_LIMIT_DESCRIPTION=${ORG_COMMON_UPLOAD_FILE_LIMIT_DESCRIPTION}
+      - ORG_COMMON_UPLOAD_FILE_LIMIT_MAX=${ORG_COMMON_UPLOAD_FILE_LIMIT_MAX}
+      - ORG_COMMON_UPLOAD_FILE_LIMIT_DEFAULT=${ORG_COMMON_UPLOAD_FILE_LIMIT_DEFAULT}
+      - SYSTEM_MENU_EXPORT_IMPORT_BUFFER_SIZE=${SYSTEM_MENU_EXPORT_IMPORT_BUFFER_SIZE}
+      - SYSTEM_MENU_EXPORT_IMPORT_BUFFER_SIZE_DESCRIPTION=${SYSTEM_MENU_EXPORT_IMPORT_BUFFER_SIZE_DESCRIPTION}
+      - ORG_MENU_EXPORT_IMPORT_BUFFER_SIZE_DESCRIPTION=${ORG_MENU_EXPORT_IMPORT_BUFFER_SIZE_DESCRIPTION}
+      - ORG_MENU_EXPORT_IMPORT_BUFFER_SIZE_MAX=${ORG_MENU_EXPORT_IMPORT_BUFFER_SIZE_MAX}
+      - ORG_MENU_EXPORT_IMPORT_BUFFER_SIZE_DEFAULT=${ORG_MENU_EXPORT_IMPORT_BUFFER_SIZE_DEFAULT}
+      - MONGO_OPTION_SSL=${MONGO_OPTION_SSL:-FALSE}
+      - MONGO_SCHEME=${MONGO_SCHEME:-mongodb}
+      - MONGO_HOST=${MONGO_HOST-ita-mongodb}
+      - MONGO_PORT=${MONGO_PORT:-27017}
+    networks:
+      - exastro
+    depends_on:
+      ita-mariadb:
+        condition: service_healthy
+      platform-migration-2:
+        condition: service_completed_successfully
+
+
+  ita-api-ansible-execution-receiver:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "httpd -D FOREGROUND; sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-api-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_api_ansible_execution_receiver/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_api_ansible_execution_receiver/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_api_ansible_execution_receiver:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_api_ansible_execution_receiver/config/httpd.conf/httpd.conf:/etc/httpd/conf/httpd.conf:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_api_ansible_execution_receiver/config/httpd.conf/wsgi.conf:/etc/httpd/conf.d/wsgi.conf:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-api-ansible-execution-receiver
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_api_ansible_execution_receiver
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-api-oase-receiver:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "httpd -D FOREGROUND; sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-api-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_api_oase_receiver/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_api_oase_receiver/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_api_oase_receiver:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_api_oase_receiver/config/httpd.conf/httpd.conf:/etc/httpd/conf/httpd.conf:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_api_oase_receiver/config/httpd.conf/wsgi.conf:/etc/httpd/conf.d/wsgi.conf:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-api-oase-receiver
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_api_oase_receiver
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-by-oase-conclusion:
+    build:
+      target: develop_build
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    entrypoint: sh -c "sleep infinity;"
+    volumes:
+      - ..:/workspace/exastro-devcontainer:cached
+      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_oase_conclusion/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_by_oase_conclusion/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/workspace/exastro-it-automation-dev/ita_root/ita_by_oase_conclusion/backyard:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_by_oase_conclusion:/exastro:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/backyard:/exastro/backyard:cached
+      - ~/.netrc:/home/app_user/.netrc
+      - ~/.gitconfig:/home/app_user/.gitconfig
+      - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
+      - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
+      - ${TALISMAN_HOME}:${TALISMAN_HOME}
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../.vscode_extensions/vscode-server/extensions:/home/app_user/.vscode-server/extensions
+      - ../.vscode_extensions/vscode-server-insiders/extensions:/home/app_user/.vscode-server-insiders/extensions
+    environment:
+      - DEVCONTAINER_MAIN_SERVICE=${DEVCONTAINER_MAIN_SERVICE:-}
+      - CONTAINER_NAME=ita-by-oase-conclusion
+      - SOURCE_ROOT=/workspace/exastro-it-automation-dev/ita_root/ita_by_oase_conclusion
+      - HTTP_PROXY=${HTTP_PROXY}
+      - http_proxy=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - https_proxy=${HTTPS_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # - SSL_CERT_DIR=/etc/ssl/certs
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+
+  ita-mariadb:
+    volumes:
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_mariadb/conf/custom.cnf:/etc/mysql/conf.d/custom.cnf
+
+volumes:
+  vol-ita-storage:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: ${PWD}/.volumes/storage

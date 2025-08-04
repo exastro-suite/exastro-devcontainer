@@ -1,0 +1,90 @@
+/*
+#   Copyright 2025 NEC Corporation
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+*/
+{
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "path": "/bin/bash"
+        }
+    },
+    "terminal.integrated.defaultProfile.linux": "bash",
+
+    "git.allowNoVerifyCommit": true,
+
+    "files.watcherExclude": {
+        "**/.volumes/**": true,
+        "**/.vscode_extensions/**": true
+    },
+
+    // python settings
+    "python.defaultInterpreterPath": "/usr/bin/python3",
+    "flake8.args": [
+        "--ignore=W293, W504",
+        "--max-line-length=250",
+        "--max-complexity=20"
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    // pytest settings
+    "python.testing.cwd": "${env:SOURCE_ROOT}",
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestArgs": [
+        "--cov=${env:SOURCE_ROOT}/",
+        "--cov-report=xml"
+    ],
+    "python.testing.autoTestDiscoverOnSaveEnabled": true,
+    "coverage-gutters.showGutterCoverage": false,
+    "coverage-gutters.showLineCoverage": true,
+    "coverage-gutters.showRulerCoverage": false,
+    "coverage-gutters.coverageBaseDir": "${env:SOURCE_ROOT}",
+    "coverage-gutters.coverageReportFileName": "${env:SOURCE_ROOT}/coverage.xml",
+
+    /* 無効設定
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.lintOnSave": true,
+    "python.interpreterPath": "/usr/bin/python3",
+    "python.formatting.provider": "autopep8",
+    "python.formatting.autopep8Args": [
+        "--aggressive", "--aggressive",
+    ],
+    "python.linting.flake8Args": [
+        "--ignore=W293, W504",
+        "--max-line-length=150",
+        "--max-complexity=20"
+    ],
+    */
+
+    // rest-client settings
+    "rest-client.environmentVariables": {
+        "$shared": {
+            "sys-mng-port": "8001",
+            "org-mng-port": "8000"
+        }
+    },
+
+    // snyk settings
+    "snyk.scanningMode": "manual",
+    "snyk.advanced.authenticationMethod": "Token authentication",
+    "snyk.severity": {
+        "medium": false,
+        "low": false
+    },
+
+    // sonarquube settings
+    "sonarlint.analysisExcludesStandalone": "**/.volumes/**,**/.private/**,**/.vscode_extension/**,**/tests/db/**",
+}
