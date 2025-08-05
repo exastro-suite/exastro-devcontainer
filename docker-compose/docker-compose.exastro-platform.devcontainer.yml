@@ -79,7 +79,7 @@ services:
       - ITA_API_ADMIN_HOST=ita-api-admin
       - ITA_API_ADMIN_PORT=8079
       - ITA_API_OASE_RECEIVER_PROTOCOL=http
-      - ITA_API_OASE_RECEIVER_HOST=ita-api-oase-receivercur
+      - ITA_API_OASE_RECEIVER_HOST=ita-api-oase-receiver
       - ITA_API_OASE_RECEIVER_PORT=8000
       - ITA_API_ANSIBLE_EXECUTION_RECEIVER_PROTOCOL=http
       - ITA_API_ANSIBLE_EXECUTION_RECEIVER_HOST=ita-api-ansible-execution-receiver
