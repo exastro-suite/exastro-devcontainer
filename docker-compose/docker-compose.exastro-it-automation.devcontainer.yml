@@ -22,8 +22,7 @@ services:
     entrypoint: sh -c "httpd -D FOREGROUND; sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-api-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-api-organization:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_api_organization/common_libs:cached
@@ -68,8 +67,7 @@ services:
     entrypoint: sh -c "httpd -D FOREGROUND; sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-api-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-api-admin:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_api_admin/common_libs:cached
@@ -125,8 +123,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-ansible-execute:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_execute/common_libs:cached
@@ -171,8 +168,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-ansible-legacy-role-vars-listup:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_legacy_role_vars_listup/common_libs:cached
@@ -217,8 +213,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-ansible-legacy-vars-listup:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_legacy_vars_listup/common_libs:cached
@@ -263,8 +258,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-ansible-pioneer-vars-listup:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_pioneer_vars_listup/common_libs:cached
@@ -309,8 +303,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-ansible-towermaster-sync:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_ansible_towermaster_sync/common_libs:cached
@@ -355,8 +348,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-collector:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_collector/common_libs:cached
@@ -401,8 +393,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-conductor-synchronize:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_conductor_synchronize/common_libs:cached
@@ -447,8 +438,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-conductor-regularly:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_conductor_regularly/common_libs:cached
@@ -493,8 +483,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-menu-create:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_menu_create/common_libs:cached
@@ -539,8 +528,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-menu-export-import:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_menu_export_import/common_libs:cached
@@ -588,8 +576,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-excel-export-import:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_excel_export_import/common_libs:cached
@@ -634,8 +621,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-terraform-cloud-ep-execute:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cloud_ep_execute/common_libs:cached
@@ -680,8 +666,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-terraform-cloud-ep-vars-listup:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cloud_ep_vars_listup/common_libs:cached
@@ -726,8 +711,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-terraform-cli-execute:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cli_execute/common_libs:cached
@@ -771,8 +755,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-terraform-cli-vars-listup:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_terraform_cli_vars_listup/common_libs:cached
@@ -817,8 +800,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-hostgroup-split:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_hostgroup_split/common_libs:cached
@@ -863,8 +845,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-cicd-for-iac:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_cicd_for_iac/common_libs:cached
@@ -908,8 +889,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-execinstance-dataautoclean:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_execinstance_dataautoclean/common_libs:cached
@@ -953,8 +933,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-file-autoclean:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_file_autoclean/common_libs:cached
@@ -998,8 +977,7 @@ services:
         - host_certificate_file
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-migration/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-migration:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_migration/common_libs:cached
@@ -1048,8 +1026,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-migration/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-migration:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_migration/common_libs:cached
@@ -1132,8 +1109,7 @@ services:
     entrypoint: sh -c "httpd -D FOREGROUND; sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-api-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-api-ansible-execution-receiver:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_api_ansible_execution_receiver/common_libs:cached
@@ -1178,8 +1154,7 @@ services:
     entrypoint: sh -c "httpd -D FOREGROUND; sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-api-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-api-oase-receiver:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_api_oase_receiver/common_libs:cached
@@ -1224,8 +1199,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-by-oase-conclusion:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_by_oase_conclusion/common_libs:cached

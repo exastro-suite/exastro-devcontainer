@@ -1,0 +1,288 @@
+[
+    {
+        "service_name": "platform-api",
+        "source_root":  "exastro-platform-dev/platform_root/platform_api",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-platform-api.json"
+        }
+    },
+    {
+        "service_name": "platform-auth",
+        "source_root":  "exastro-platform-dev/platform_root/platform_auth",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-platform-auth.json"
+        }
+    },
+    {
+        "service_name": "platform-job",
+        "source_root":  "exastro-platform-dev/platform_root/platform_job",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-platform-job.json"
+        }
+    },
+    {
+        "service_name": "platform-migration",
+        "source_root":  "exastro-platform-dev/platform_root/platform_migration",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-platform-migration.json"
+        }
+    },
+    {
+        "service_name": "platform-web",
+        "source_root":  "exastro-platform-dev/platform_root/platform_web",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json"
+        }
+    },
+    {
+        "service_name": "ita-ag-oase",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_ag_oase",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-api-admin",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_api_admin",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-api.json"
+        }
+    },
+    {
+        "service_name": "ita-api-ansible-execution-receiver",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_api_ansible_execution_receiver",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-api.json"
+        }
+    },
+    {
+        "service_name": "ita-api-oase-receiver",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_api_oase_receiver",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-api.json"
+        }
+    },
+    {
+        "service_name": "ita-api-organization",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_api_organization",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-api.json"
+        }
+    },
+    {
+        "service_name": "ita-by-ansible-execute",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_ansible_execute",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-ansible-legacy-role-vars-listup",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_ansible_legacy_role_vars_listup",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-ansible-legacy-vars-listup",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_ansible_legacy_vars_listup",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-ansible-pioneer-vars-listup",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_ansible_pioneer_vars_listup",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-ansible-towermaster-sync",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_ansible_towermaster_sync",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-cicd-for-iac",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_cicd_for_iac",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-collector",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_collector",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-conductor-regularly",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_conductor_regularly",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-conductor-synchronize",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_conductor_synchronize",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-excel-export-import",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_excel_export_import",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-execinstance-dataautoclean",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_execinstance_dataautoclean",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-file-autoclean",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_file_autoclean",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-hostgroup-split",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_hostgroup_split",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-menu-create",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_menu_create",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-menu-export-import",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_menu_export_import",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-oase-conclusion",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_oase_conclusion",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-terraform-cli-execute",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_terraform_cli_execute",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-terraform-cli-vars-listup",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_terraform_cli_vars_listup",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-terraform-cloud-ep-execute",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_terraform_cloud_ep_execute",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-by-terraform-cloud-ep-vars-listup",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_by_terraform_cloud_ep_vars_listup",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-by.json"
+        }
+    },
+    {
+        "service_name": "ita-migration",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_migration",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-migration.json"
+        }
+    },
+    {
+        "service_name": "ita-web-server",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_web_server",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json"
+        }
+    }
+]

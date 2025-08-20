@@ -37,4 +37,6 @@ chmod 777 "${REPO_ROOT_DIR}/.volumes/exastro/log"
 mkdir -p "${REPO_ROOT_DIR}/.volumes/exastro/ssl"
 chmod 777 "${REPO_ROOT_DIR}/.volumes/exastro/ssl"
 
+${REPO_ROOT_DIR}/vscode/build.sh
+
 echo "FINISH $(basename $0)"

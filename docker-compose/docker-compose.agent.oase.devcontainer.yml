@@ -22,8 +22,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-it-automation/ita-by-no-custom/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/ita-ag-oase:/workspace/.vscode:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_ag_oase/common_libs:cached

@@ -39,19 +39,19 @@
         "editor.defaultFormatter": "ms-python.black-formatter"
     },
     // pytest settings
-    "python.testing.cwd": "${env:SOURCE_ROOT}",
+    "python.testing.cwd": "$${workspaceFolder}/${source_root}",
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
     "python.testing.pytestArgs": [
-        "--cov=${env:SOURCE_ROOT}/",
+        "--cov=$${workspaceFolder}/${source_root}/",
         "--cov-report=xml"
     ],
     "python.testing.autoTestDiscoverOnSaveEnabled": true,
     "coverage-gutters.showGutterCoverage": false,
     "coverage-gutters.showLineCoverage": true,
     "coverage-gutters.showRulerCoverage": false,
-    "coverage-gutters.coverageBaseDir": "${env:SOURCE_ROOT}",
-    "coverage-gutters.coverageReportFileName": "${env:SOURCE_ROOT}/coverage.xml",
+    "coverage-gutters.coverageBaseDir": "${source_root}",
+    "coverage-gutters.coverageReportFileName": "${source_root}/coverage.xml",
 
     /* 無効設定
     "python.linting.pylintEnabled": false,

@@ -22,8 +22,7 @@ services:
     entrypoint: sh -c "/app/start_httpd.sh -D MOD_WSGI_DISABLE;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-platform/platform-auth/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/platform-auth:/workspace/.vscode:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_auth/common_library:cached
@@ -94,8 +93,7 @@ services:
     entrypoint: sh -c "httpd -D FOREGROUND; sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-platform/platform-api/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/platform-api:/workspace/.vscode:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_api/common_library:cached
@@ -109,7 +107,6 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
-      - ../vscode/common:/home/app_user/.config/Code/User
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -150,8 +147,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-platform/platform-job/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/platform-job:/workspace/.vscode:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_job/common_library:cached
@@ -201,7 +197,7 @@ services:
         - host_certificate_file
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
+      - ../vscode/.build/platform-web:/workspace/.vscode:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_web/config/httpd.conf/httpd.conf:/etc/httpd/conf/httpd.conf:cached
@@ -291,8 +287,7 @@ services:
         - host_certificate_file
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-platform/platform-migration/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/platform-migration:/workspace/.vscode:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_migration/common_library:cached
@@ -344,8 +339,7 @@ services:
     entrypoint: sh -c "sleep infinity;"
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
-      - ../vscode/common:/workspace/.vscode:cached
-      - ../vscode/exastro-platform/platform-migration/launch.json:/workspace/.vscode/launch.json:cached
+      - ../vscode/.build/platform-migration:/workspace/.vscode:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_migration/common_library:cached
