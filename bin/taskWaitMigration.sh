@@ -19,6 +19,7 @@ BASENAME=$(basename $0)
 SHELL_DIR=$(realpath $(dirname $0))
 REPO_ROOT_DIR=$(realpath ${SHELL_DIR}/..)
 ENV_FILE=${REPO_ROOT_DIR}/docker-compose/.env
+DOCKER_COMMAND=$(which docker)
 
 # devcontainerのメインコンテナ起動時以外は処理を中断する
 if [ -z "${DEVCONTAINER_MAIN_SERVICE}" ]; then
@@ -55,10 +56,10 @@ echo "COMPOSE_PROJECT_NAME = ${COMPOSE_PROJECT_NAME}"
 
 # ita-migrationが完了するまで待つ
 while true; do
-    if [ $(sudo docker ps -q -f "name=${COMPOSE_PROJECT_NAME}-ita-migration-1" | wc -l) -ne 1 ]; then
+    if [ $(sudo ${DOCKER_COMMAND} ps -q -f "name=${COMPOSE_PROJECT_NAME}-ita-migration-1" | wc -l) -ne 1 ]; then
         break;
     fi
-    if [ $(sudo docker "inspect ${COMPOSE_PROJECT_NAME}-ita-migration-1" | jq -r '.[0].State.Status') == 'exited' ]; then
+    if [ $(sudo ${DOCKER_COMMAND} "inspect ${COMPOSE_PROJECT_NAME}-ita-migration-1" | jq -r '.[0].State.Status') == 'exited' ]; then
         break;
     fi
 

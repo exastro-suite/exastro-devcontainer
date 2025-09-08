@@ -19,6 +19,7 @@ BASENAME=$(basename $0)
 SHELL_DIR=$(realpath $(dirname $0))
 REPO_ROOT_DIR=$(realpath ${SHELL_DIR}/..)
 ENV_FILE=${REPO_ROOT_DIR}/docker-compose/.env
+DOCKER_COMMAND=$(which docker)
 
 # パラメータ
 CONTAINER_SERVICE=$1
@@ -44,7 +45,7 @@ CONTAINER_NAME="${COMPOSE_PROJECT_NAME}-${CONTAINER_SERVICE}-1"
 echo "CONTAINER_NAME = ${CONTAINER_NAME}"
 
 # コンテナが存在しているか？
-if [ $(sudo docker ps -q -f "name=${CONTAINER_NAME}" | wc -l) -eq 0 ]; then
+if [ $(sudo ${DOCKER_COMMAND} ps -q -f "name=${CONTAINER_NAME}" | wc -l) -eq 0 ]; then
     # コンテナが存在していない場合
     echo "Not Found Container : ${CONTAINER_NAME}"
     exit 0
@@ -53,18 +54,18 @@ fi
 # HTTPD(Apache)の停止 or 再起動
 if [ "${HTTPD_STOP}" == "stop-httpd" ]; then
     echo "Stop Httpd Service"
-    sudo docker exec -it ${CONTAINER_NAME} httpd -k stop
+    sudo ${DOCKER_COMMAND} exec -it ${CONTAINER_NAME} httpd -k stop
 else
     echo "Restart Httpd Service"
-    sudo docker exec -it ${CONTAINER_NAME} httpd -k graceful
+    sudo ${DOCKER_COMMAND} exec -it ${CONTAINER_NAME} httpd -k graceful
 fi
 # 指定portのプロセスを終了
 if [ "${API_PORT}" != "0" ]; then
     echo "Stop Process Port ${API_PORT}"
-    sudo docker exec -it ${CONTAINER_NAME} fuser -k -n tcp ${API_PORT}
+    sudo ${DOCKER_COMMAND} exec -it ${CONTAINER_NAME} fuser -k -n tcp ${API_PORT}
 fi
 
 echo "Execute API ${API_START_PYTHON}"
 echo "-----------------------------------------------------------------"
-sudo docker exec -it ${CONTAINER_NAME} python3 ${API_START_PYTHON}
+sudo ${DOCKER_COMMAND} exec -it ${CONTAINER_NAME} python3 ${API_START_PYTHON}
 
