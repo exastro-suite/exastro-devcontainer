@@ -12,6 +12,7 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
+
 echo "START $(basename $0)"
 
 SHELL_DIR=$(realpath $(dirname $0))
@@ -19,25 +20,8 @@ REPO_ROOT_DIR=$(realpath ${SHELL_DIR}/..)
 
 DOCKER_COMMAND=$(which docker)
 
-# リストア時に停止するコンテナ
-RESTART_CONTAINERS=(keycloak platform-db platform-db-mysql ita-mariadb ita-mysql ita-mongodb)
-
-# リストアするファイル
-BACKUP_PATH="${SHELL_DIR}/.backup"
-if [ -n "$1" ]; then
-    RESTORE_FILE="$1"
-    if [ ! -e "${RESTORE_FILE}" ]; then
-        echo "Error: Not found backup file: $1"
-        exit 1
-    fi
-
-else
-    RESTORE_FILE=$(ls -t ${BACKUP_PATH}/exastro_volumes.*.tgz | head -n 1)
-    if [ -z "${RESTORE_FILE}" ]; then
-        echo "Error: Not found backup file"
-        exit 1
-    fi
-fi
+# 初期化時に停止するコンテナ
+STOP_CONTAINERS=(keycloak platform-db platform-db-mysql ita-mariadb ita-mysql ita-mongodb)
 
 # .envファイル読み込み
 ENV_FILE=${REPO_ROOT_DIR}/docker-compose/.env
@@ -68,9 +52,6 @@ done
 echo "CLEAN VOLUMES"
 sudo find "${REPO_ROOT_DIR}/.volumes" -type f -delete
 
-echo "CLEAN VOLUMES"
-sudo find "${REPO_ROOT_DIR}/.volumes" -type f -delete
-
 if [ -d "${REPO_ROOT_DIR}/.volumes/ita-mariadb/data" ]; then
     sudo find "${REPO_ROOT_DIR}/.volumes/ita-mariadb/data" -mindepth 1 -delete
 fi
@@ -90,16 +71,5 @@ if [ -d "${REPO_ROOT_DIR}/.volumes/storage" ]; then
     sudo find "${REPO_ROOT_DIR}/.volumes/storage" -mindepth 1 -delete
 fi
 
-# ファイルリストア
-echo "RESTORE VOLUMES"
-sudo tar xfz "${RESTORE_FILE}" -C "${REPO_ROOT_DIR}"
-
-# コンテナの再開
-for RESTART_CONTAINER in ${STOP_CONTAINERS[@]}
-do
-    COMPOSE_DOCKER_NAME=${COMPOSE_PROJECT_NAME}-${RESTART_CONTAINER}-1
-    echo "RESTART CONTAINER ${RESTART_CONTAINER}"
-    sudo ${DOCKER_COMMAND} start "${COMPOSE_DOCKER_NAME}"
-done
-
-exit 0
+# コンテナを停止（削除します）
+sudo docker rm -f $(sudo docker ps -a -q --filter "label=com.docker.compose.project=${COMPOSE_PROJECT_NAME}")

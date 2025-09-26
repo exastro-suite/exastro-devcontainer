@@ -21,7 +21,7 @@ REPO_ROOT_DIR=$(realpath ${SHELL_DIR}/..)
 DOCKER_COMMAND=$(which docker)
 
 # バックアップ時に停止するコンテナ
-RESTART_CONTAINERS=(keycloak platform-db platform-db-mysql ita-mariadb ita-mongodb)
+RESTART_CONTAINERS=(keycloak platform-db platform-db-mysql ita-mariadb ita-mysql ita-mongodb)
 
 # ファイル名決定
 BACKUP_PATH="${SHELL_DIR}/.backup"

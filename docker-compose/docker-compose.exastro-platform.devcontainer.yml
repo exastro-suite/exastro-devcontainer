@@ -255,6 +255,8 @@ services:
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_db/conf/my.cnf:/etc/mysql/conf.d/my.cnf
     ports:
       - "0.0.0.0:${EXT_PORT_PLATFORM_DB:-3307}:3306"
+    profiles:
+      - platform-mariadb  # platformのDBはitaのDBに統合のため起動しない
 
   platform-db-mysql:
     image: mysql:8.0
@@ -272,6 +274,8 @@ services:
       - "0.0.0.0:${EXT_PORT_PLATFORM_DB_MYSQL:-3309}:3306"
     networks:
       - exastro
+    profiles:
+      - platform-mysql  # platformのDBはitaのDBに統合のため起動しない
 
   platform-migration-1:
     build:
