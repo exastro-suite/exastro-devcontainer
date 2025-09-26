@@ -20,7 +20,7 @@ services:
       - ita-mariadb
     environment:
       - PMA_ARBITRARY=1
-      - PMA_HOSTS=ita-mariadb
+      - PMA_HOSTS=${DB_HOST:-ita-mariadb}
     ports:
       - "8080:80"
     volumes:

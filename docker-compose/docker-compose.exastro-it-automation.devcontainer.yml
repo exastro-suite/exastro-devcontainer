@@ -1010,6 +1010,9 @@ services:
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+    depends_on:
+      ita-mysql:
+        condition: service_healthy
 
   ita-migration-dev:
     build:
@@ -1096,9 +1099,10 @@ services:
     depends_on:
       ita-mariadb:
         condition: service_healthy
+      ita-mysql:
+        condition: service_healthy
       platform-migration-2:
         condition: service_completed_successfully
-
 
   ita-api-ansible-execution-receiver:
     build:
@@ -1238,6 +1242,23 @@ services:
   ita-mariadb:
     volumes:
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_mariadb/conf/custom.cnf:/etc/mysql/conf.d/custom.cnf
+
+  ita-mysql:
+    image: mysql:8.0
+    healthcheck:
+      test: mysqladmin ping --silent && mysql -u root -p$${MYSQL_ROOT_PASSWORD} -e 'select 1;'
+      interval: 3s
+      retries: 200
+    volumes:
+      - ../.volumes/ita-mysql/data:/var/lib/mysql
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_mariadb/conf/custom.cnf:/etc/mysql/conf.d/custom.cnf
+    environment:
+      - TZ=Asia/Tokyo
+      - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD:-password}
+    ports:
+      - "0.0.0.0:3307:3306"
+    networks:
+      - exastro
 
 volumes:
   vol-ita-storage:
