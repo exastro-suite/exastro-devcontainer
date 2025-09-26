@@ -72,4 +72,4 @@ if [ -d "${REPO_ROOT_DIR}/.volumes/storage" ]; then
 fi
 
 # コンテナを停止（削除します）
-sudo docker rm -f $(sudo docker ps -a -q --filter "label=com.docker.compose.project=${COMPOSE_PROJECT_NAME}")
+sudo ${DOCKER_COMMAND} rm -f $(sudo ${DOCKER_COMMAND} ps -a -q --filter "label=com.docker.compose.project=${COMPOSE_PROJECT_NAME}")
