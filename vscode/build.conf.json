@@ -5,7 +5,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-platform-api.json"
+            "launch.json": "launch-platform-api.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -14,7 +15,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-platform-auth.json"
+            "launch.json": "launch-platform-auth.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -23,7 +25,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-platform-job.json"
+            "launch.json": "launch-platform-job.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -32,7 +35,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-platform-migration.json"
+            "launch.json": "launch-platform-migration.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -49,7 +53,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -58,7 +63,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-api.json"
+            "launch.json": "launch-ita-api.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -67,7 +73,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-api.json"
+            "launch.json": "launch-ita-api.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -76,7 +83,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-api.json"
+            "launch.json": "launch-ita-api.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -85,7 +93,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-api.json"
+            "launch.json": "launch-ita-api.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -94,7 +103,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -103,7 +113,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -112,7 +123,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -121,7 +133,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -130,7 +143,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -139,7 +153,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -148,7 +163,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -157,7 +173,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -166,7 +183,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -175,7 +193,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -184,7 +203,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -193,7 +213,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -202,7 +223,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -211,7 +233,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -220,7 +243,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -229,7 +253,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -238,7 +263,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -247,7 +273,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -256,7 +283,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -265,7 +293,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json"
+            "launch.json": "launch-ita-by.json",
+            ".env": ".env.template"
         }
     },
     {
@@ -274,7 +303,8 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-migration.json"
+            "launch.json": "launch-ita-migration.json",
+            ".env": ".env.template"
         }
     },
     {
