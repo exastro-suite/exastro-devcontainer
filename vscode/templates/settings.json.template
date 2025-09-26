@@ -30,6 +30,7 @@
 
     // python settings
     "python.defaultInterpreterPath": "/usr/bin/python3",
+    "python.envFile": "${workspaceFolder}/.vscode/.env",
     "flake8.args": [
         "--ignore=W293, W504",
         "--max-line-length=250",
