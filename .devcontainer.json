@@ -62,7 +62,8 @@
 				"ms-vsliveshare.vsliveshare",
 				"snyk-security.snyk-vulnerability-scanner@2.21.0",
 				"humao.rest-client",
-				"ryanluker.vscode-coverage-gutters"
+				"ryanluker.vscode-coverage-gutters",
+				"mongodb.mongodb-vscode"
 			]
 		}
 	},

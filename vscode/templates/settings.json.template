@@ -88,4 +88,10 @@
 
     // sonarquube settings
     "sonarlint.analysisExcludesStandalone": "**/.volumes/**,**/.private/**,**/.vscode_extension/**,**/tests/db/**",
+    "mdb.presetConnections": [
+        {
+            "name": "ita-mongodb",
+            "connectionString": "mongodb://${MONGO_ADMIN_USER}:${MONGO_ADMIN_PASSWORD}@ita-mongodb:27017"
+        }
+    ],
 }
