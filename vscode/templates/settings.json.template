@@ -94,4 +94,6 @@
             "connectionString": "mongodb://${MONGO_ADMIN_USER}:${MONGO_ADMIN_PASSWORD}@ita-mongodb:27017"
         }
     ],
+    "mdb.confirmRunAll": false
 }
+
