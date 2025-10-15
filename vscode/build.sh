@@ -17,8 +17,8 @@ echo "START $(basename $0)"
 BASE_DIR=$(realpath $(dirname $0))
 REPO_DIR=$(realpath ${BASE_DIR}/..)
 
-MONGO_ADMIN_USER=$(sed -n -e 's/#.*$//' -e 's/^MONGO_ADMIN_USER=//p' "${REPO_DIR}/docker-compose/.env")
-MONGO_ADMIN_PASSWORD=$(sed -n -e 's/#.*$//' -e 's/^MONGO_ADMIN_PASSWORD=//p' "${REPO_DIR}/docker-compose/.env")
+MONGO_ADMIN_USER=$(sed -n -e 's/#.*$//' -e 's/  *$//' -e 's/^MONGO_ADMIN_USER=//p' "${REPO_DIR}/docker-compose/.env")
+MONGO_ADMIN_PASSWORD=$(sed -n -e 's/#.*$//' -e 's/  *$//' -e 's/^MONGO_ADMIN_PASSWORD=//p' "${REPO_DIR}/docker-compose/.env")
 
 mkdir -p ${BASE_DIR}/.build
 
