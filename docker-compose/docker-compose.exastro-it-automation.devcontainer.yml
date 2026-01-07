@@ -27,7 +27,7 @@ services:
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_api_organization/common_libs:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/workspace/exastro-it-automation-dev/ita_root/ita_api_organization/messages:cached
-      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_api_organization:/exastro/exastro-it-automation-dev:cached
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_api_organization:/exastro:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/exastro/common_libs:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/messages:/exastro/messages:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_api_organization/config/httpd.conf/httpd.conf:/etc/httpd/conf/httpd.conf:cached
