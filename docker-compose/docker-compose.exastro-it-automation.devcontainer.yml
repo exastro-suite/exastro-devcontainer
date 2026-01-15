@@ -1252,6 +1252,7 @@ services:
     volumes:
       - ../.volumes/ita-mysql/data:/var/lib/mysql
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_mariadb/conf/custom.cnf:/etc/mysql/conf.d/custom.cnf
+      - ../ita_root/ita_mysql/conf/mysql-only.cnf:/etc/mysql/conf.d/mysql-only.cnf
     environment:
       - TZ=Asia/Tokyo
       - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD:-password}
