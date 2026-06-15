@@ -94,6 +94,32 @@
             "connectionString": "mongodb://${MONGO_ADMIN_USER}:${MONGO_ADMIN_PASSWORD}@ita-mongodb:27017"
         }
     ],
-    "mdb.confirmRunAll": false
+    "mdb.confirmRunAll": false,
+    "claudeCode.environmentVariables": [
+        {
+            "name": "CLAUDE_CODE_USE_BEDROCK",
+            "value": "1"
+        },
+        {
+            "name": "AWS_REGION",
+            "value": "ap-northeast-1"
+        },
+        {
+            "name": "AWS_SDK_LOAD_CONFIG",
+            "value": "1"
+        },
+        {
+            "name": "AWS_CA_BUNDLE",
+            "value": "/etc/pki/tls/certs/ca-bundle.crt"
+        },
+        {
+            "name": "REQUESTS_CA_BUNDLE",
+            "value": "/etc/pki/tls/certs/ca-bundle.crt"
+        },
+        {
+            "name": "NODE_EXTRA_CA_CERTS",
+            "value": "/etc/pki/tls/certs/ca-bundle.crt"
+        }
+    ]
 }
 

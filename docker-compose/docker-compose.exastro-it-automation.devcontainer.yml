@@ -35,6 +35,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -55,7 +57,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-api-admin:
@@ -80,6 +83,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -100,7 +105,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-web-server:
@@ -136,6 +142,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -156,7 +164,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-ansible-legacy-role-vars-listup:
@@ -181,6 +190,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -201,7 +212,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-ansible-legacy-vars-listup:
@@ -226,6 +238,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -246,7 +260,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-ansible-pioneer-vars-listup:
@@ -271,6 +286,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -291,7 +308,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-ansible-towermaster-sync:
@@ -316,6 +334,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -336,7 +356,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-collector:
@@ -361,6 +382,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -381,7 +404,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-conductor-synchronize:
@@ -406,6 +430,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -426,7 +452,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-conductor-regularly:
@@ -451,6 +478,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -471,7 +500,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-menu-create:
@@ -496,6 +526,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -516,7 +548,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-menu-export-import:
@@ -544,6 +577,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -564,7 +599,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-excel-export-import:
@@ -589,6 +625,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -609,7 +647,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-terraform-cloud-ep-execute:
@@ -634,6 +673,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -654,7 +695,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-terraform-cloud-ep-vars-listup:
@@ -679,6 +721,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -699,7 +743,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-terraform-cli-execute:
@@ -724,6 +769,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
       - ${TALISMAN_HOME}:${TALISMAN_HOME}
@@ -743,7 +790,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-terraform-cli-vars-listup:
@@ -768,6 +816,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -788,7 +838,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-hostgroup-split:
@@ -813,6 +864,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -833,7 +886,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-cicd-for-iac:
@@ -858,6 +912,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
       - ${TALISMAN_HOME}:${TALISMAN_HOME}
@@ -877,7 +933,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-execinstance-dataautoclean:
@@ -902,6 +959,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
       - ${TALISMAN_HOME}:${TALISMAN_HOME}
@@ -921,7 +980,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-file-autoclean:
@@ -946,6 +1006,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -966,7 +1028,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-migration:
@@ -988,6 +1051,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -1008,7 +1073,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
     depends_on:
       ita-mysql:
@@ -1040,6 +1106,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -1061,7 +1129,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
       - TZ=Asia/Tokyo
       - ENCRYPT_KEY=${ENCRYPT_KEY}
@@ -1126,6 +1195,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -1146,7 +1217,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-api-oase-receiver:
@@ -1171,6 +1243,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -1191,7 +1265,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-by-oase-conclusion:
@@ -1216,6 +1291,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -1236,7 +1313,8 @@ services:
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-mariadb:

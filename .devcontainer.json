@@ -63,7 +63,8 @@
 				"snyk-security.snyk-vulnerability-scanner@2.21.0",
 				"humao.rest-client",
 				"ryanluker.vscode-coverage-gutters",
-				"mongodb.mongodb-vscode"
+				"mongodb.mongodb-vscode",
+				"anthropic.claude-code"
 			]
 		}
 	},
@@ -72,6 +73,7 @@
 	"forwardPorts": [
 	],
     "initializeCommand": "./bin/initializeCommand.sh",
+	"postAttachCommand": "/workspace/exastro-devcontainer/bin/postAttachCommand.sh",
 	"workspaceFolder": "/workspace",
 	"overrideCommand": false
 }
