@@ -1318,10 +1318,13 @@ services:
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
   ita-mariadb:
+    hostname: ita-mariadb
     volumes:
+      - ../.volumes/ita-mariadb/data:/var/lib/mysql
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_mariadb/conf/custom.cnf:/etc/mysql/conf.d/custom.cnf
 
   ita-mysql:
+    hostname: ita-mysql
     image: mysql:8.0
     healthcheck:
       test: mysqladmin ping --silent && mysql -u root -p$${MYSQL_ROOT_PASSWORD} -e 'select 1;'
