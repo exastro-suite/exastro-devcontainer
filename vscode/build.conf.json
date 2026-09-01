@@ -78,6 +78,16 @@
         }
     },
     {
+        "service_name": "ita-api-mcp-server",
+        "source_root":  "exastro-it-automation-dev/ita_root/ita_api_mcp_server",
+        "build_files": {
+            "settings.json": "settings.json.template",
+            "tasks.json": "tasks.json",
+            "launch.json": "launch-ita-api.json",
+            ".env": ".env.template"
+        }
+    },
+    {
         "service_name": "ita-api-oase-receiver",
         "source_root":  "exastro-it-automation-dev/ita_root/ita_api_oase_receiver",
         "build_files": {
