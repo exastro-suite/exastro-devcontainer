@@ -23,6 +23,7 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/platform-auth:/workspace/.vscode:cached
+      - ../claude:/workspace/.claude
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_auth/common_library:cached
@@ -59,8 +60,8 @@ services:
       - http_proxy=${HTTP_PROXY}
       - HTTPS_PROXY=${HTTPS_PROXY}
       - https_proxy=${HTTPS_PROXY}
-      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,${NO_PROXY}
-      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,${NO_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,ita-api-mcp-server,ita-qdrant,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,ita-api-mcp-server,ita-qdrant,${NO_PROXY}
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
@@ -86,7 +87,9 @@ services:
       - ITA_API_ANSIBLE_EXECUTION_RECEIVER_PROTOCOL=http
       - ITA_API_ANSIBLE_EXECUTION_RECEIVER_HOST=ita-api-ansible-execution-receiver
       - ITA_API_ANSIBLE_EXECUTION_RECEIVER_PORT=8000
-
+      - ITA_API_MCP_SERVER_PROTOCOL=http
+      - ITA_API_MCP_SERVER_HOST=ita-api-mcp-server
+      - ITA_API_MCP_SERVER_PORT=8000
   platform-api:
     build:
       target: develop_build
@@ -97,6 +100,7 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/platform-api:/workspace/.vscode:cached
+      - ../claude:/workspace/.claude
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_api/common_library:cached
@@ -130,8 +134,8 @@ services:
       - http_proxy=${HTTP_PROXY}
       - HTTPS_PROXY=${HTTPS_PROXY}
       - https_proxy=${HTTPS_PROXY}
-      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
-      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,ita-api-mcp-server,ita-qdrant,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,ita-api-mcp-server,ita-qdrant,${NO_PROXY}
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
@@ -154,6 +158,7 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/platform-job:/workspace/.vscode:cached
+      - ../claude:/workspace/.claude
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_job/common_library:cached
@@ -185,8 +190,8 @@ services:
       - http_proxy=${HTTP_PROXY}
       - HTTPS_PROXY=${HTTPS_PROXY}
       - https_proxy=${HTTPS_PROXY}
-      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
-      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,ita-api-mcp-server,ita-qdrant,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,ita-api-mcp-server,ita-qdrant,${NO_PROXY}
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
@@ -207,6 +212,7 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/platform-web:/workspace/.vscode:cached
+      - ../claude:/workspace/.claude
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_web/config/httpd.conf/httpd.conf:/etc/httpd/conf/httpd.conf:cached
@@ -233,8 +239,8 @@ services:
       - http_proxy=${HTTP_PROXY}
       - HTTPS_PROXY=${HTTPS_PROXY}
       - https_proxy=${HTTPS_PROXY}
-      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
-      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,ita-api-mcp-server,ita-qdrant,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,ita-api-mcp-server,ita-qdrant,${NO_PROXY}
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
@@ -304,6 +310,7 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/platform-migration:/workspace/.vscode:cached
+      - ../claude:/workspace/.claude
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_migration/common_library:cached
@@ -334,8 +341,8 @@ services:
       - http_proxy=${HTTP_PROXY}
       - HTTPS_PROXY=${HTTPS_PROXY}
       - https_proxy=${HTTPS_PROXY}
-      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
-      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,ita-api-mcp-server,ita-qdrant,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,ita-api-mcp-server,ita-qdrant,${NO_PROXY}
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
@@ -359,6 +366,7 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/platform-migration:/workspace/.vscode:cached
+      - ../claude:/workspace/.claude
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_migration/common_library:cached
@@ -389,8 +397,8 @@ services:
       - http_proxy=${HTTP_PROXY}
       - HTTPS_PROXY=${HTTPS_PROXY}
       - https_proxy=${HTTPS_PROXY}
-      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
-      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,ita-api-mcp-server,ita-qdrant,${NO_PROXY}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,ita-api-mcp-server,ita-qdrant,${NO_PROXY}
       # - SSL_CERT_DIR=/etc/ssl/certs
       - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem

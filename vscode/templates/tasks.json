@@ -61,7 +61,8 @@
         "ita-api-organization",
         "ita-api-admin",
         "ita-api-ansible-execution-receiver",
-        "ita-api-oase-receiver"
+        "ita-api-oase-receiver",
+        "ita-api-mcp-server"
       ],
       "problemMatcher": []
     },
@@ -99,6 +100,12 @@
       "label": "ita-api-oase-receiver",
       "type": "shell",
       "command": "${workspaceFolder}/exastro-devcontainer/bin/taskRestartAPIservice.sh ita-api-oase-receiver 8000 stop-httpd /exastro/api.py",
+      "problemMatcher": []
+    },
+    {
+      "label": "ita-api-mcp-server",
+      "type": "shell",
+      "command": "${workspaceFolder}/exastro-devcontainer/bin/taskRestartAPIservice.sh ita-api-mcp-server 8000 stop-httpd /exastro/api.py",
       "problemMatcher": []
     }
   ]
