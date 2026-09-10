@@ -80,6 +80,7 @@ description: マニュアルの文書からRAG用のmarkdownファイル(日本�
     - installation
     - configuration
     - contribute
+    - kb
     - learn
     - reference
     - templates
