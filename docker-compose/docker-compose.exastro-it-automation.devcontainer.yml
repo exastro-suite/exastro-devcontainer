@@ -1392,6 +1392,14 @@ services:
       - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
+  ita-qdrant:
+    build:
+      context: ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}
+      secrets:
+        - host_certificate_file
+    volumes:
+      - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/ita_qdrant/snapshot:/exastro/snapshot:cached
+
   ita-mariadb:
     hostname: ita-mariadb
     volumes:
