@@ -17,5 +17,5 @@ RAG用のopenapiファイル(日本語版)からRAG用のopenapiファイル(英
 ### STEP 2: 英語翻訳したファイルをqdrantに登録する
 - 次のシェルを実行する
     ```
-    sudo docker exec -it exastro-ita-api-mcp-server-1 bash /exastro/documents/tools/import_documents.sh {英訳したファイルのパス}
+    sudo docker exec -it exastro-ita-api-mcp-server-1 bash /exastro/documents/tools/import_document.sh {英訳したファイルのパス}
     ```

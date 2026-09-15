@@ -26,5 +26,5 @@ RAG用のdocuments-toolsのmarkdownファイル(日本語版)からRAG用のmark
 
 - 登録対象のファイルが個別指定の場合は次のシェルを実行する（複数ファイルの時はパラメータに列挙して呼び出すこと）
     ```
-    sudo docker exec -it exastro-ita-api-mcp-server-1 bash /exastro/documents/tools/import_documents.sh {英訳したファイルのパス}
+    sudo docker exec -it exastro-ita-api-mcp-server-1 bash /exastro/documents/tools/import_document.sh {英訳したファイルのパス}
     ```
