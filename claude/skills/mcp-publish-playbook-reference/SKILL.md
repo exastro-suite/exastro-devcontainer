@@ -54,7 +54,7 @@ Ansible Legacy PlaybookのダウンロードURLからcurlコマンドでAnsible 
 
 - 作成対象のitem_noが個別指定の場合は次のシェルを実行する（複数ファイルの時はパラメータに列挙して呼び出すこと）
     ```
-    sudo docker exec -it exastro-ita-api-mcp-server-1 bash /exastro/documents/tools/import_documents.sh {作成したファイルのパス}
+    sudo docker exec -it exastro-ita-api-mcp-server-1 bash /exastro/documents/tools/import_document.sh {作成したファイルのパス}
     ```
 
 ## markdownファイルの作成方法
