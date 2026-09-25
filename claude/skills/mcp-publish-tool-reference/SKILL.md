@@ -5,7 +5,7 @@ description: RAG用のtool referenceのmarkdownファイル(日本語版)からR
 
 # Publish Tool reference
 
-RAG用のdocuments-toolsのmarkdownファイル(日本語版)からRAG用のmarkdownファイル(英語版)を作成し、RAGに登録します
+RAG用のtool-referenceのmarkdownファイル(日本語版)からRAG用のmarkdownファイル(英語版)を作成し、RAGに登録します
 
 ## 手順
 
