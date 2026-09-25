@@ -40,7 +40,7 @@ fi
 
 echo "** ita-by-ansible-execute 起動"
 sudo ${DOCKER_COMMAND} exec -d \
-    -e EXECUTE_INTERVAL=${EXECUTE_INTERVAL_ANSIBLE_EXECUTE:-${EXECUTE_INTERVAL:-2}} \
+    -e EXECUTE_INTERVAL=${EXECUTE_INTERVAL_ANSIBLE_EXECUTE:-${EXECUTE_INTERVAL:-3}} \
     ${COMPOSE_PROJECT_NAME}-ita-by-ansible-execute-1 \
     sh -c 'nohup /exastro/backyard/entrypoint.sh > /proc/1/fd/1 2>&1 &'
 
@@ -61,7 +61,6 @@ sudo ${DOCKER_COMMAND} exec -d \
     sh -c 'nohup /exastro/backyard/entrypoint.sh > /proc/1/fd/1 2>&1 &'
 
 sleep 1
-
 
 echo "** ita-by-ansible-pioneer-vars-listup 起動"
 sudo ${DOCKER_COMMAND} exec -d \
@@ -105,7 +104,7 @@ sleep 1
 
 echo "** ita-by-conductor-synchronize 起動"
 sudo ${DOCKER_COMMAND} exec -d \
-    -e EXECUTE_INTERVAL=${EXECUTE_INTERVAL_CONDUCTOR_SYNCHRONIZE:-${EXECUTE_INTERVAL:-2}} \
+    -e EXECUTE_INTERVAL=${EXECUTE_INTERVAL_CONDUCTOR_SYNCHRONIZE:-${EXECUTE_INTERVAL:-5}} \
     ${COMPOSE_PROJECT_NAME}-ita-by-conductor-synchronize-1 \
     sh -c 'nohup /exastro/backyard/entrypoint.sh > /proc/1/fd/1 2>&1 &'
 
