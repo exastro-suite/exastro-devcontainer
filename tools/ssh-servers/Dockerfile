@@ -13,6 +13,12 @@ RUN --mount=type=secret,id=host_certificate_file,dst=/etc/pki/ca-trust/extracted
     "NO_PROXY=${no_proxy}" \
     >> /etc/environment
 
+
+RUN --mount=type=secret,id=host_certificate_file,dst=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
+    printf '%s\n' \
+    "proxy=${https_proxy}" \
+    >> /etc/dnf/dnf.conf
+
 RUN --mount=type=secret,id=host_certificate_file,dst=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
     dnf install -y openssh-server openssh-clients passwd sudo python3 \
     && dnf clean all \
