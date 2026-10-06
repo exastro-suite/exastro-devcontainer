@@ -81,6 +81,8 @@
     // snyk settings
     "snyk.scanningMode": "manual",
     "snyk.advanced.authenticationMethod": "Token authentication",
+    "snyk.advanced.additionalParameters": "--exclude=.volumes",
+    "snyk.allIssuesVsNetNewIssues": "All issues",
     "snyk.severity": {
         "medium": false,
         "low": false

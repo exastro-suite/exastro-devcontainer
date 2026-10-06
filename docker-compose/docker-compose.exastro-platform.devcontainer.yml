@@ -24,6 +24,7 @@ services:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/platform-auth:/workspace/.vscode:cached
       - ../claude:/workspace/.claude
+      - ../.snyk:/workspace/.snyk
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_auth/common_library:cached
@@ -101,6 +102,7 @@ services:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/platform-api:/workspace/.vscode:cached
       - ../claude:/workspace/.claude
+      - ../.snyk:/workspace/.snyk
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_api/common_library:cached
@@ -159,6 +161,7 @@ services:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/platform-job:/workspace/.vscode:cached
       - ../claude:/workspace/.claude
+      - ../.snyk:/workspace/.snyk
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_job/common_library:cached
@@ -213,6 +216,7 @@ services:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/platform-web:/workspace/.vscode:cached
       - ../claude:/workspace/.claude
+      - ../.snyk:/workspace/.snyk
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/platform_web/config/httpd.conf/httpd.conf:/etc/httpd/conf/httpd.conf:cached
@@ -311,6 +315,7 @@ services:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/platform-migration:/workspace/.vscode:cached
       - ../claude:/workspace/.claude
+      - ../.snyk:/workspace/.snyk
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_migration/common_library:cached
@@ -367,6 +372,7 @@ services:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/platform-migration:/workspace/.vscode:cached
       - ../claude:/workspace/.claude
+      - ../.snyk:/workspace/.snyk
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}/platform_root/common_library:/workspace/exastro-platform-dev/platform_root/platform_migration/common_library:cached
