@@ -1,0 +1,97 @@
+[project]
+name = "ita-ag-ansible-execution"
+version = "0.1.0"
+description = "Exastro IT Automation Ansible execution agent (vendored for the exastro.analysis_integration devcontainer)"
+readme = "ita_ag_ansible_execution/README.md"
+requires-python = ">=3.11,<3.13"
+
+# entrypoint.py / entrypoint_child.py から静的に到達可能なモジュールが import するものだけを列挙している。
+# 詳細な根拠は dependency.md を参照。
+dependencies = [
+    # flask.Flask / flask.g（アプリケーションコンテキストをグローバル変数置き場として使用）
+    "flask>=2.3",
+    # Crypto.Cipher.AES / Crypto.Random / Crypto.Util.Padding (common_libs/common/encrypt.py)
+    "pycryptodome>=3.20",
+    # pytz.timezone (common_libs/common/util.py)
+    "pytz>=2024.1",
+    # yaml.safe_load で logging.yml を読み込む (common_libs/common/logger.py)
+    "pyyaml>=6.0",
+    # Exastro ITA API 呼び出し (agent/libs/exastro_api.py, ita_ag_ansible_execution/agent_child_main.py)
+    "requests>=2.32",
+    # MultipartEncoder / StreamingIterator (agent/libs/exastro_api.py)
+    "requests-toolbelt>=1.0",
+    # urllib3.disable_warnings / InsecureRequestWarning (agent/libs/exastro_api.py)
+    "urllib3>=2.0",
+    # Python API ではなく CLI として使用する。
+    # 作業実行時に Exastro ITA から取得する builder.sh / start.sh / alive.sh / stop.sh が
+    # ansible-builder build, ansible-runner start|is-alive|stop を呼び出す。
+    # バージョンは AAP 同梱 RPM に合わせて固定する（ita_ag_ansible_execution/setup.sh 参照）。
+    "ansible-builder==3.1.1",
+    "ansible-runner==2.4.3",
+]
+
+[dependency-groups]
+dev = [
+    # VS Code からエージェントプロセスにアタッチするため
+    "debugpy>=1.8",
+]
+
+# スクリプトツリーを python -m で直接実行する構成であり、
+# 自身をビルド／インストールする必要はない。
+[tool.uv]
+package = false
+
+[tool.pyright]
+# 上流 Exastro IT Automation から取り込んだツリーであり、コードは原則そのまま維持する。
+# ここでの型検査の目的は「上流コードを綺麗にすること」ではなく、
+# 1) 上の dependencies 一覧に漏れがないこと（未解決 import の検出）
+# 2) 取り込み時に削除したモジュールへの参照が残っていないこと
+# の 2 点を機械的に担保することに置く。
+# 親リポジトリの pyproject.toml と設定を分けるため、VS Code 側では
+# python.analysis.useNearestConfiguration = true を有効にしている。
+
+# entrypoint.py / agent/ / ita_ag_ansible_execution/ / common_libs/ が
+# エージェントの全ソース。setup.sh・logging.yml 等は Python ソースではない。
+include = ["entrypoint.py", "agent", "common_libs", "ita_ag_ansible_execution"]
+exclude = [
+    "**/.venv/**",
+    "**/__pycache__/**",
+    "**/node_modules",
+    "**/.*",
+    ".devcontainer/**",
+]
+
+# エージェント専用の .venv を参照する（親リポジトリの .venv とは別物）。
+venvPath = "."
+venv = ".venv"
+
+# requires-python = ">=3.11,<3.13" の下限に合わせる。
+# 実行環境（コンテナ／AAP 同梱 Python）が 3.11 のこともあるため下限で検査する。
+pythonVersion = "3.11"
+pythonPlatform = "Linux"
+
+# 型注釈がほぼ無い上流コードのため standard 以上は現実的でない。
+# import 解決と明らかな不整合の検出に絞る。
+typeCheckingMode = "standard"
+
+# 目的 1) / 2) に対応するチェックは error のまま維持する（既定で error）。
+# reportMissingImports  … dependencies 漏れ・削除済みモジュール参照の検出
+# reportMissingModuleSource … スタブのみ存在するパッケージの検出（既定 warning）
+# reportCallIssue        … 引数の個数不整合の検出
+
+# 以下は上流コード由来の既存指摘（os.environ.get() の str | None を
+# 絞り込まずに使う、など）が取り込み時点で 50 件以上出ていた（現在は 0 件）。
+# 上流コードに手を入れた際の退行に気付けるよう warning として残す。
+reportOptionalMemberAccess = "warning"
+reportOptionalSubscript = "warning"
+reportOptionalOperand = "warning"
+reportOptionalIterable = "warning"
+reportOptionalCall = "warning"
+reportArgumentType = "warning"
+reportOperatorIssue = "warning"
+reportIndexIssue = "warning"
+reportAttributeAccessIssue = "warning"
+
+# flask.g を任意属性の置き場として使う設計のため、動的属性アクセスは検査しない。
+reportUnknownMemberType = "none"
+reportMissingTypeStubs = "none"

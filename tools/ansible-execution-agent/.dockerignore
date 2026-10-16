@@ -1,0 +1,6 @@
+**/.*
+**/__pycache__
+Dockerfile
+dependency.md
+container-runtime.md
+**/*.pyc

@@ -1,0 +1,31 @@
+version: 1
+formatters:
+  myformat:
+    format: '[%(asctime)s][%(levelname)s] %(message)s'
+handlers:
+  console:
+    class: logging.StreamHandler
+    formatter: myformat
+    stream: ext://sys.stdout
+  myfile:
+    class: logging.handlers.RotatingFileHandler
+    formatter: myformat
+    filename: app.log
+    maxBytes: 10485760
+    backupCount: 30
+  myconsole:
+    class: logging.StreamHandler
+    formatter: myformat
+    stream: ext://sys.stdout
+loggers:
+  fileAppLogger:
+    level: INFO
+    handlers: [myfile]
+    propagate: no
+  stdAppLogger:
+    level: INFO
+    handlers: [myconsole]
+    propagate: no
+root:
+  level: ERROR
+  handlers: [console]
