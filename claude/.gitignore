@@ -1,6 +1,7 @@
 /*
 !/.gitignore
 !/skills/
+!/ita-mcp-headers.sh
 /skills/prv-*/
 /skills/private-*/
 /skills/work-*/
