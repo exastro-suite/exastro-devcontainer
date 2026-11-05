@@ -40,6 +40,25 @@ chmod 777 "${REPO_ROOT_DIR}/.volumes/exastro/ssl"
 mkdir -p ~/.aws
 mkdir -p ~/.claude
 
+ENV_FILE="${REPO_ROOT_DIR}/docker-compose/.env"
+
+# Exastro MCPサーバーへの接続設定(Claude Codeのプロジェクト設定)を生成する
+# 接続先の組織ID/ワークスペースIDは${REPO_ROOT_DIR}/docker-compose/.envのITA_MCP_ORG/ITA_MCP_WSで指定する(既定はorg1/ws1)
+# 各コンテナの/workspace/.mcp.jsonにマウントされる。認証はclaude/ita-mcp-headers.shが行う(認証情報ITA_MCP_USER/ITA_MCP_PASSも同じ.envに記入する)
+ITA_MCP_ORG=$(grep -E '^ITA_MCP_ORG=' "$ENV_FILE" 2>/dev/null | tail -n1 | cut -d= -f2- | tr -d '"'"'"'\r ')
+ITA_MCP_WS=$(grep -E '^ITA_MCP_WS=' "$ENV_FILE" 2>/dev/null | tail -n1 | cut -d= -f2- | tr -d '"'"'"'\r ')
+cat << __EOF__ > "${REPO_ROOT_DIR}/claude/mcp.json"
+{
+  "mcpServers": {
+    "ita-mcp": {
+      "type": "http",
+      "url": "http://platform-auth:8000/api/${ITA_MCP_ORG:-org1}/workspaces/${ITA_MCP_WS:-ws1}/mcp",
+      "headersHelper": "bash /workspace/.claude/ita-mcp-headers.sh"
+    }
+  }
+}
+__EOF__
+
 which aws && {
     echo "** Check AWS session **"
     export AWS_CA_BUNDLE=/etc/pki/tls/certs/ca-bundle.crt
