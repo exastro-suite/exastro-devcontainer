@@ -58,6 +58,77 @@ services:
     profiles:
       - ita-ag-oase
 
+  ita-ag-ansible-execution:
+    build:
+      context: ../tools/ansible-execution-agent
+      args:
+        - USERNAME=exastro
+        - GROUPNAME=exastro
+        # 使うランタイムのCLIだけをイメージに入れる(docker / podman)
+        - CONTAINER_RUNTIME=${DEVCONTAINER_RUNTIME}
+        - HTTP_PROXY=${http_proxy}
+        - http_proxy=${http_proxy}
+        - HTTPS_PROXY=${https_proxy}
+        - https_proxy=${https_proxy}
+        - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+        - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+    volumes:
+      # コンテナランタイムのソケット。docker(DOoD) / podman の切替は.envで行う
+      # 詳細は services/ansible-execution-agent/container-runtime.md を参照
+      - type: "bind"
+        source: "${DEVCONTAINER_RUNTIME_SOCK_SRC}"
+        target: "${DEVCONTAINER_RUNTIME_SOCK_DST}"
+      # playbook実行コンテナのbind mountを成立させるため、ホストと同一パスにマウントする
+      - type: "bind"
+        source: "${AG_ANSIBLE_HOST_STORAGEPATH}"
+        target: "${AG_ANSIBLE_HOST_STORAGEPATH}"
+    # プロセスが落ちたコンテナが放置されないよう自動再起動する
+    restart: unless-stopped
+    # 子プロ（ansible-runner / ansible-builder）の孫プロセスが孤児化した際に
+    # PID 1 の python では回収できずゾンビが溜まるため、tini を PID 1 に置く
+    init: true
+    environment:
+      - HTTP_PROXY=${http_proxy}
+      - http_proxy=${http_proxy}
+      - HTTPS_PROXY=${https_proxy}
+      - https_proxy=${https_proxy}
+      - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
+      # playbook実行コンテナを起動するランタイム。ansible-execution-agent自身がdocker/podmanコマンドを選択する際に参照する
+      - RUNNER_CONTAINER_RUNTIME=${DEVCONTAINER_RUNTIME}
+      # 接続先ソケット。DOCKER_HOSTはpodmanが読まず、CONTAINER_HOSTはdockerが読まないため両方定義しておく
+      - DOCKER_HOST=unix://${DEVCONTAINER_RUNTIME_SOCK_DST}
+      - CONTAINER_HOST=unix://${DEVCONTAINER_RUNTIME_SOCK_DST}
+      # playbook実行コンテナを参加させるネットワーク。playbookがplatform-auth等のコンテナ名で接続するために必要
+      # 値はinitialize.shが決める(exastro_networkと同じ名前)
+      - RUNNER_NETWORK=${AG_ANSIBLE_AGENT_RUNNER_NETWORK}
+      # ホストと同一パスにする必要があるため、AG_ANSIBLE_HOST_STORAGEPATHを渡す
+      - STORAGEPATH=${AG_ANSIBLE_HOST_STORAGEPATH}
+      # common
+      - TZ=${AG_ANSIBLE_TZ:-Asia/Tokyo}
+      - DEFAULT_LANGUAGE=${AG_ANSIBLE_DEFAULT_LANGUAGE:-en}
+      # oase-agent
+      - AGENT_NAME=${AG_ANSIBLE_AGENT_NAME}
+      - EXASTRO_ORGANIZATION_ID=${AG_ANSIBLE_EXASTRO_ORGANIZATION_ID}
+      - EXASTRO_WORKSPACE_ID=${AG_ANSIBLE_EXASTRO_WORKSPACE_ID}
+      # 既定値はinitialize.shが決めて.envに書き出す
+      - EXASTRO_REFRESH_TOKEN=${AG_ANSIBLE_EXASTRO_REFRESH_TOKEN}
+      - EXASTRO_URL=${AG_ANSIBLE_EXASTRO_URL}
+      - ITERATION=${AG_ANSIBLE_ITERATION}
+      - EXECUTE_INTERVAL=${AG_ANSIBLE_EXECUTE_INTERVAL}
+      - LOG_LEVEL=${AG_ANSIBLE_LOG_LEVEL}
+      - CHILD_PROCESS_RETRY_LIMIT=${AG_ANSIBLE_CHILD_PROCESS_RETRY_LIMIT}
+      - EXECUTION_ENVIRONMENT_NAMES=${AG_ANSIBLE_EXECUTION_ENVIRONMENT_NAMES}
+      # - EXECUTION_LIMIT=${AG_ANSIBLE_EXECUTION_LIMIT}
+      # - MOVEMENT_LIMIT=${AG_ANSIBLE_MOVEMENT_LIMIT}
+    group_add:
+      - ${DEVCONTAINER_RUNTIME_GID}
+    user: exastro
+    networks:
+      - exastro
+    profiles:
+      - ita-ag-ansible-execution
+
   # mongo-express:
   #   image: mongo-express
   #   depends_on:
