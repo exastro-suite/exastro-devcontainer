@@ -26,6 +26,12 @@
 		"./docker-compose/docker-compose.tools.devcontainer.yml"
 	],
 	"service": "${localEnv:DEVCONTAINER_MAIN_SERVICE:ita-api-organization}",
+	// Claude Code はdevcontainer(メインサービス)でのみ使用するため、composeではなくここでマウントする
+	"mounts": [
+		"source=${localWorkspaceFolder}/claude,target=/workspace/.claude,type=bind",
+		"source=${localWorkspaceFolder}/claude/mcp.json,target=/workspace/.mcp.json,type=bind,readonly",
+		"source=${localEnv:HOME}/.claude,target=/home/app_user/.claude,type=bind"
+	],
 	// Set *default* container specific settings.json values on container create.
 	"customizations": {
 		"vscode": {
