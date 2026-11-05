@@ -15,6 +15,8 @@
 
 echo "START $(basename $0)"
 
+DOCKER_COMMAND=$(which docker)
+
 # Install the tools for development
 which aws || {
     echo "Installing AWS CLI v2..."
@@ -30,5 +32,12 @@ which claude || {
     cd /tmp
     curl -fsSL https://claude.ai/install.sh | bash
 }
+
+# Qdrant再起動
+CONTAINER_ID_ITA_QDRANT=$(sudo ${DOCKER_COMMAND} ps -f name=ita-qdrant -q)
+if [ -n "${CONTAINER_ID_ITA_QDRANT}" ]; then
+    echo "RESTART CONTAINER ita-qdrant"
+    sudo ${DOCKER_COMMAND} restart "${CONTAINER_ID_ITA_QDRANT}"
+fi
 
 echo "FINISH $(basename $0)"

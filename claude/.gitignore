@@ -1,0 +1,10 @@
+/*
+!/.gitignore
+!/skills/
+/skills/prv-*/
+/skills/private-*/
+/skills/work-*/
+/skills/wk-*/
+/skills/tmp-*/
+/skills/temp-*/
+/skills/test-*/
