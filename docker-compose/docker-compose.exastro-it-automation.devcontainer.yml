@@ -23,7 +23,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-api-organization:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -38,7 +37,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -62,6 +60,9 @@ services:
       - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
+    # DooD: ホストのdockerソケットを使えるようにする（GIDはinitializeCommand.shが.envに設定）
+    group_add:
+      - ${DEVCONTAINER_RUNTIME_GID}
 
   ita-api-admin:
     build:
@@ -73,7 +74,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-api-admin:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -88,7 +88,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -134,7 +133,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-ansible-execute:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -149,7 +147,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -184,7 +181,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-ansible-legacy-role-vars-listup:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -199,7 +195,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -234,7 +229,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-ansible-legacy-vars-listup:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -249,7 +243,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -284,7 +277,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-ansible-pioneer-vars-listup:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -299,7 +291,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -334,7 +325,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-ansible-towermaster-sync:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -349,7 +339,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -384,7 +373,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-collector:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -399,7 +387,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -434,7 +421,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-conductor-synchronize:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -449,7 +435,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -484,7 +469,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-conductor-regularly:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -499,7 +483,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -534,7 +517,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-menu-create:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -549,7 +531,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -584,7 +565,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-menu-export-import:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -602,7 +582,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -637,7 +616,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-excel-export-import:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -652,7 +630,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -687,7 +664,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-terraform-cloud-ep-execute:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -702,7 +678,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -737,7 +712,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-terraform-cloud-ep-vars-listup:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -752,7 +726,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -787,7 +760,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-terraform-cli-execute:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -802,7 +774,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
       - ${TALISMAN_HOME}:${TALISMAN_HOME}
@@ -836,7 +807,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-terraform-cli-vars-listup:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -851,7 +821,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -886,7 +855,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-hostgroup-split:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -901,7 +869,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -936,7 +903,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-cicd-for-iac:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -951,7 +917,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
       - ${TALISMAN_HOME}:${TALISMAN_HOME}
@@ -985,7 +950,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-execinstance-dataautoclean:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -1000,7 +964,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
       - ${TALISMAN_HOME}:${TALISMAN_HOME}
@@ -1034,7 +997,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-file-autoclean:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -1049,7 +1011,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -1083,7 +1044,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-migration:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -1096,7 +1056,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -1140,7 +1099,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-migration:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -1153,7 +1111,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -1229,7 +1186,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-api-ansible-execution-receiver:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -1244,7 +1200,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -1279,7 +1234,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-api-oase-receiver:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -1294,7 +1248,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -1329,7 +1282,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-by-oase-conclusion:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -1344,7 +1296,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -1379,7 +1330,6 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-api-mcp-server:/workspace/.vscode:cached
-      - ../claude:/workspace/.claude
       - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
@@ -1394,7 +1344,6 @@ services:
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
       - ~/.aws:/home/app_user/.aws
-      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
