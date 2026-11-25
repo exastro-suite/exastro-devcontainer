@@ -53,7 +53,7 @@
         "build_files": {
             "settings.json": "settings.json.template",
             "tasks.json": "tasks.json",
-            "launch.json": "launch-ita-by.json",
+            "launch.json": "launch-ita-ag-oase.json",
             ".env": ".env.template"
         }
     },

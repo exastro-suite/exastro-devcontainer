@@ -23,6 +23,8 @@ services:
     volumes:
       - ..:/workspace/exastro-devcontainer:cached
       - ../vscode/.build/ita-ag-oase:/workspace/.vscode:cached
+      - ../claude:/workspace/.claude
+      - ../.snyk:/workspace/.snyk
       - ${PLATFORM_REPO_ROOT:-../../exastro-platform-dev}:/workspace/exastro-platform-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}:/workspace/exastro-it-automation-dev:cached
       - ${ITA_REPO_ROOT:-../../exastro-it-automation-dev}/ita_root/common_libs:/workspace/exastro-it-automation-dev/ita_root/ita_ag_oase/common_libs:cached
@@ -35,6 +37,8 @@ services:
       - ~/.netrc:/home/app_user/.netrc
       - ~/.gitconfig:/home/app_user/.gitconfig
       - ~/.config/git/ignore:/home/app_user/.config/git/ignore
+      - ~/.aws:/home/app_user/.aws
+      - ~/.claude:/home/app_user/.claude
       - ${HOST_CERTIFICATE_FILE:-/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem}:/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - /usr/share/pki/ca-trust-source/anchors/UserRootCertificate.crt:/etc/ssl/certs/ca-certificates.crt
       - /mnt/mainte/talisman/.talismanrc:/mnt/mainte/talisman/.talismanrc
@@ -52,9 +56,11 @@ services:
       - https_proxy=${HTTPS_PROXY}
       - NO_PROXY=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
       - no_proxy=127.0.0.1,localhost,keycloak,platform-auth,platform-api,platform-web,ita-api-admin,ita-api-organization,ita-api-oase-receiver,ita-api-ansible-execution-receiver,ita-web-server,${NO_PROXY}
-      # - SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
       # - SSL_CERT_DIR=/etc/ssl/certs
-      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+      - SSL_CERT_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
       - REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_EXTRA_CA_CERTS=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - AWS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+      - NODE_TLS_REJECT_UNAUTHORIZED=${NODE_TLS_REJECT_UNAUTHORIZED:-1}
 
 
